@@ -5,6 +5,11 @@ import { ApiError } from "../errors/apiError";
 export const errorHandler = (err:any, req: Request, res: Response, next: NextFunction) => {
 
     console.error("centralized error:", err);
+    console.error("ERROR LOG" , {
+        message: err.message,
+        stack: err.stack,
+        name: err.name
+    })
 
     if(err instanceof mongoose.Error){
         res.status(400).json({
