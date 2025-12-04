@@ -31,6 +31,11 @@ export const getProjects = async(req: Request, res: Response, next: NextFunction
 }
 
 export const deleteProject = async(req: Request, res: Response, next: NextFunction) => {
+
+    if(!req.params.projectId){
+        return next(new ApiError(400, "Project ID is required"));
+    }
+
     try{
         const { projectId } = req.params;
         const project = await ProjectModel.findByIdAndDelete(projectId);
