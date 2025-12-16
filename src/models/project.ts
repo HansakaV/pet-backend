@@ -10,7 +10,7 @@ export interface Project extends Document {
 const projectSchema: Schema = new Schema({
     projectId: { type: String,unique: true },
     name: { type: String, required: true },
-    description: { type: String, required: true }
+    description: { type: String }
 });
 
 const ProjectModel = mongoose.model<Project>('Project', projectSchema);

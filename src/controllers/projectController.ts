@@ -3,6 +3,7 @@ import ProjectModel from "../models/project";
 import { ApiError } from "../errors/apiError";
 
 export const createProject = async(req: Request, res: Response, next: NextFunction) => {
+    console.log("createProject called" , req.body);
     try{
         const project = new ProjectModel(req.body);
         if(!project.name ){

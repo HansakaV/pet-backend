@@ -8,23 +8,24 @@ import rootRouter from './routes/index';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
-
+const PORT = parseInt(process.env.PORT || '3000', 10);
+    
 const corsOptions = {
     origin: 'http://localhost:5173', 
     METHODS: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type']
+    allowedHeaders: ['Content-Type']        
 };
 app.use(cors(corsOptions));
+app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.json());
-app.use(errorHandler)
 app.use('/api', rootRouter);
+app.use(errorHandler)
+
 
 connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
+  app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT} and accessible on all interfaces`);
+});
 });
 
