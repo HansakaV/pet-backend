@@ -9,9 +9,10 @@ import rootRouter from './routes/index';
 dotenv.config();
 const app = express();
 const PORT = parseInt(process.env.PORT || '3000', 10);
+
     
 const corsOptions = {
-    origin: 'http://localhost:5173', 
+    origin: process.env.ORIGIN, 
     METHODS: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type']        
 };

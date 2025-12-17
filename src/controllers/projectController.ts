@@ -32,14 +32,15 @@ export const getProjects = async(req: Request, res: Response, next: NextFunction
 }
 
 export const deleteProject = async(req: Request, res: Response, next: NextFunction) => {
+    console.log("deleteProject called with id:", req.params._id);
 
-    if(!req.params.projectId){
+    if(!req.params._id){
         return next(new ApiError(400, "Project ID is required"));
     }
 
     try{
-        const { projectId } = req.params;
-        const project = await ProjectModel.findByIdAndDelete(projectId);
+        const { _id } = req.params;
+        const project = await ProjectModel.findByIdAndDelete(_id);
         if (!project) {
             throw new ApiError(404, "Project not found");
         }
