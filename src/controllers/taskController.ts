@@ -6,29 +6,46 @@ import mongoose from "mongoose";
 
 const isValidObjectId = (id: unknown) => mongoose.Types.ObjectId.isValid(String(id));
 
-export const createTask = async(req:Request, res:Response,next:NextFunction)=>{
-    try{
-        const task = new TaskModel(req.body);
-        if(!task ){
-            throw new ApiError(400, "All Fields are required");
-        }
-        if(!isValidObjectId(task.projectId)){
-            throw new ApiError(400, "Invalid projectId");
-        }
+export const getAllTasks = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const tasks = await TaskModel.find();
+    res.status(200).json({ status: 'success', data: tasks });
+  } catch (error) {
+    next(error);
+  }
+};
 
-        const project = await ProjectModel.findById(task.projectId);
-        if(!project){
-            throw new ApiError(404, "Project not found");
-        }
+export const createTask = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { title, description, status, projectId } = req.body;
 
-        const savedTask = await task.save();
-        res.status(201).json({ status: 'success', data: savedTask });
-
-    }catch(error){
-        next(error);
+    if (!isValidObjectId(projectId)) {
+      throw new ApiError(400, "Invalid projectId");
     }
 
-}
+    const project = await ProjectModel.findById(projectId);
+    if (!project) {
+      throw new ApiError(404, "Project not found");
+    }
+
+    const task = new TaskModel({
+      title,
+      description,
+      status,
+      projectId
+    });
+
+    const savedTask = await task.save();
+
+    res.status(201).json({
+      status: "success",
+      data: savedTask
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const editTask = async(req: Request, res: Response, next: NextFunction) => {
     try{
