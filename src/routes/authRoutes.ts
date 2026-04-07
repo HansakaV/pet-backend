@@ -19,7 +19,8 @@ authRouter.get(
       process.env.JWT_SECRET || "default_secret",
       { expiresIn: "7d" }
     );
-    res.redirect(`${process.env.ORIGIN || "http://localhost:5173"}/login?token=${token}`);
+    const frontendUrl = (process.env.ORIGIN || "http://localhost:5173").replace(/\/$/, "");
+    res.redirect(`${frontendUrl}/login?token=${token}`);
   }
 );
 
@@ -34,7 +35,8 @@ authRouter.get(
       process.env.JWT_SECRET || "default_secret",
       { expiresIn: "7d" }
     );
-    res.redirect(`${process.env.ORIGIN || "http://localhost:5173"}/login?token=${token}`);
+    const frontendUrl = (process.env.ORIGIN || "http://localhost:5173").replace(/\/$/, "");
+    res.redirect(`${frontendUrl}/login?token=${token}`);
   }
 );
 

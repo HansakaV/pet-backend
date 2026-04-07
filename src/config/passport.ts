@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID || "temp",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "temp",
-      callbackURL: "/api/auth/google/callback",
+      callbackURL: `${(process.env.BACKEND_URL || "http://localhost:3000").replace(/\/$/, "")}/api/auth/google/callback`,
     },
     async (_accessToken, _refreshToken, profile, done) => {
       try {
@@ -44,7 +44,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID || "temp",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "temp",
-      callbackURL: `${process.env.BACKEND_URL || "http://localhost:3000"}/api/auth/github/callback`,
+      callbackURL: `${(process.env.BACKEND_URL || "http://localhost:3000").replace(/\/$/, "")}/api/auth/github/callback`,
     },
     async (_accessToken: string, _refreshToken: string, profile: any, done: any) => {
       try {
