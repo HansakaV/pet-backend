@@ -19,7 +19,7 @@ const corsOptions = {
         const allowedOrigins = [
             process.env.ORIGIN, 
             "http://localhost:5173",
-            "https://pet-project-frontend-fr44.vercel.app"
+            "https://pet-project-frontend-pi.vercel.app"
         ];
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
