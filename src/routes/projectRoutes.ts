@@ -1,10 +1,14 @@
-import express from "express";
-import { createProject, getProjects, deleteProject } from "../controllers/projectController";
+import { Router } from "express";
+import { createProject, getProjects, deleteProject, getProjectById } from "../controllers/projectController";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
-const projectRoutes = express.Router();
+const projectRouter = Router();
 
-projectRoutes.post("/", createProject);
-projectRoutes.get("/", getProjects);
-projectRoutes.delete("/:id", deleteProject);
+projectRouter.use(authMiddleware);
 
-export default projectRoutes;
+projectRouter.get("/", getProjects);
+projectRouter.get("/:id", getProjectById);
+projectRouter.post("/", createProject);
+projectRouter.delete("/:id", deleteProject);
+
+export default projectRouter;
