@@ -16,7 +16,11 @@ const PORT = parseInt(process.env.PORT || '3000', 10);
     
 const corsOptions = {
     origin: (origin: any, callback: any) => {
-        const allowedOrigins = [process.env.ORIGIN, "http://localhost:5173"];
+        const allowedOrigins = [
+            process.env.ORIGIN, 
+            "http://localhost:5173",
+            "https://pet-project-frontend-fr44.vercel.app"
+        ];
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
